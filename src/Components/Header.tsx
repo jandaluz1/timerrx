@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 
 import {
   Flex,
@@ -8,10 +8,13 @@ import {
   DrawerContent,
   DrawerBody,
   DrawerCloseButton,
-  Box,
+  DrawerHeader,
   useDisclosure,
+  Icon,
+  Button,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import { GoSignIn } from "react-icons/go";
 
 export function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,9 +39,14 @@ export function Header() {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
+          <DrawerHeader>TimerRx</DrawerHeader>
           <DrawerBody>
-            <Box>Sign Up</Box>
-            <Box>Log In</Box>
+            <Flex direction="column" gap="2">
+              <Button colorScheme="cyan">Sign Up</Button>
+              <Button colorScheme="cyan" leftIcon={<Icon as={GoSignIn} />}>
+                Log In
+              </Button>
+            </Flex>
           </DrawerBody>
         </DrawerContent>
       </Drawer>

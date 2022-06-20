@@ -7,6 +7,7 @@ import {
   DrawerOverlay,
   DrawerBody,
   useDisclosure,
+  DrawerFooter,
   DrawerCloseButton,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
@@ -44,6 +45,11 @@ export function BottomBar() {
           <DrawerBody>
             <AddMedForm />
           </DrawerBody>
+          <DrawerFooter>
+            <Button colorScheme="cyan" type="submit" form="addMed">
+              Submit
+            </Button>
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </>
