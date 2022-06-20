@@ -10,32 +10,6 @@ export const App = () => (
     <Header />
     <ContentArea>
       <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
-      <DrugCard />
     </ContentArea>
     <BottomBar />
   </ChakraProvider>

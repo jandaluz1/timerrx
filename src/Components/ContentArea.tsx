@@ -7,15 +7,12 @@ interface IProps {
 export function ContentArea({ children }: IProps) {
   return (
     <Flex
-      bg="green.200"
       w={["100vw", "sm", "lg"]}
       overflowY="scroll"
-      overflowX="hidden"
       direction="column"
-      mt="2.5"
+      mt="9"
       gap="1"
     >
-      <h2>Content Area</h2>
       {children}
     </Flex>
   );
