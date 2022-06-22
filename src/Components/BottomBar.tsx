@@ -13,10 +13,6 @@ import {
 import { AddIcon } from "@chakra-ui/icons";
 import { AddMedForm } from "./AddMedForm";
 
-const handleClick = () => {
-  console.log("CLICKED");
-};
-
 export function BottomBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -43,7 +39,7 @@ export function BottomBar() {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerBody>
-            <AddMedForm />
+            <AddMedForm close={onClose} />
           </DrawerBody>
           <DrawerFooter>
             <Button colorScheme="cyan" type="submit" form="addMed">

@@ -6,13 +6,7 @@ interface IProps {
 }
 export function ContentArea({ children }: IProps) {
   return (
-    <Flex
-      w={["100vw", "sm", "lg"]}
-      overflowY="scroll"
-      direction="column"
-      mt="9"
-      gap="1"
-    >
+    <Flex w="100%" overflowY="scroll" direction="column" mt="9" gap="1">
       {children}
     </Flex>
   );
