@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState, useContext } from "react";
 import {
   FormControl,
   FormLabel,
@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 
 import { MedState } from "./interface";
+import { MedsContext } from "./context";
 
 //name
 //dosage
@@ -33,9 +34,7 @@ export function AddMedForm({ close }: IProps) {
     nextDose: null,
   });
 
-  const _meds = localStorage.getItem("meds");
-  let meds: MedState[];
-  _meds ? (meds = JSON.parse(_meds)) : (meds = []);
+  const { meds, setMeds } = useContext(MedsContext);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDrug({ ...drug, [e.target.name]: e.target.value });
@@ -55,6 +54,7 @@ export function AddMedForm({ close }: IProps) {
     setNextDose();
     console.log(drug);
     localStorage.setItem("meds", JSON.stringify([...meds, drug]));
+    setMeds((prevState) => [...prevState, drug]);
     close();
   };
 
