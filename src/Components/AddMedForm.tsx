@@ -8,53 +8,51 @@ import {
   CheckboxGroup,
 } from "@chakra-ui/react";
 
+import { MedState } from "./interface";
+
 //name
 //dosage
 //frequency
-//push notification
-//email notification
-//ready to be taken
 //epoch time of next dose
+//last time taken
 
 interface IProps {
   close: () => void;
 }
 
-interface MedState {
-  name: string;
-  dosage: string;
-  frequency: number;
-  pushNotification: boolean;
-  emailNotification: boolean;
-  isReady: boolean;
-  nextDose: number;
-}
+const SECOND = 1000;
+const MINUTE = SECOND * 60;
+const HOUR = MINUTE * 60;
 
 export function AddMedForm({ close }: IProps) {
   const [drug, setDrug] = useState<MedState>({
     name: "",
-    dosage: "",
-    frequency: 1,
-    pushNotification: true,
-    emailNotification: false,
-    isReady: false,
-    nextDose: Date.now() + 60000,
+    dosage: 0,
+    frequency: 0,
+    lastDose: Date.now(),
+    nextDose: null,
   });
 
   const _meds = localStorage.getItem("meds");
-  let meds: any[];
+  let meds: MedState[];
   _meds ? (meds = JSON.parse(_meds)) : (meds = []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDrug({ ...drug, [e.target.name]: e.target.value });
   };
 
-  const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
-    setDrug({ ...drug, [e.target.name]: !e.target.checked });
+  // const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setDrug({ ...drug, [e.target.name]: !e.target.checked });
+  // };
+
+  const setNextDose = (): void => {
+    const hours = Math.floor(24 / drug.frequency!);
+    drug.nextDose = Date.now() + HOUR * hours;
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    setNextDose();
     console.log(drug);
     localStorage.setItem("meds", JSON.stringify([...meds, drug]));
     close();
@@ -74,7 +72,7 @@ export function AddMedForm({ close }: IProps) {
         />
       </FormControl>
       <FormControl isRequired>
-        <FormLabel htmlFor="dosage">Dosage</FormLabel>
+        <FormLabel htmlFor="dosage">Dosage(mg)</FormLabel>
         <Input
           id="dosage"
           name="dosage"
@@ -95,15 +93,15 @@ export function AddMedForm({ close }: IProps) {
           variant="filled"
         />
       </FormControl>
-      <FormLabel>Notification</FormLabel>
-      <CheckboxGroup defaultValue={["push"]}>
+      {/* <FormLabel>Notification</FormLabel> */}
+      {/* <CheckboxGroup defaultValue={["push"]}>
         <Stack spacing={["1", "5"]} direction={["row", "column"]}>
           <Checkbox name="pushNotification" value="push" onChange={handleCheck}>
             Push Notification
           </Checkbox>
           <Checkbox disabled>Email</Checkbox>
         </Stack>
-      </CheckboxGroup>
+      </CheckboxGroup> */}
     </form>
   );
 }

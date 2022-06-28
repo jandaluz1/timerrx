@@ -1,7 +1,36 @@
-import React from "react";
-import { Box } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { Box, useToast, Text } from "@chakra-ui/react";
 
-export function DrugCard() {
+import { MedState } from "./interface";
+
+interface IProps {
+  med: MedState;
+}
+
+export function DrugCard({ med }: IProps) {
+  const toast = useToast();
+
+  const formatTime = (epochTime: number): string => {
+    const date = new Date(epochTime * 1000);
+
+    return date.toLocaleTimeString();
+  };
+
+  useEffect(() => {
+    let timer1 = setTimeout(() => {
+      toast({
+        position: "top",
+        title: med.name,
+        description: `Time to take ${med.name}`,
+        status: "success",
+        isClosable: true,
+        duration: 3000,
+      });
+    }, 5000);
+
+    return () => clearTimeout(timer1);
+  }, []);
+
   return (
     <Box
       bg="yellow.200"
@@ -10,7 +39,11 @@ export function DrugCard() {
       border="1px"
       boxSizing="border-box"
     >
-      <h1>Drug Card</h1>
+      <Text fontSize="lg">
+        {med.name} - {med.dosage}mg
+      </Text>
+      <Text>Taken at: {formatTime(med.lastDose)}</Text>
+      <Text>Next dose at: {formatTime(med.nextDose!)}</Text>
     </Box>
   );
 }
