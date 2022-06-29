@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Flex } from "@chakra-ui/react";
 import { DrugCard } from "./DrugCard";
+import { MedsContext } from "../Components/context";
 
 export function ContentArea() {
-  const [meds, setMeds] = useState<any[]>(() => {
-    const _meds = localStorage.getItem("meds");
-
-    return _meds ? JSON.parse(_meds) : [];
-  });
+  const { meds, setMeds } = useContext(MedsContext);
 
   useEffect(() => {
-    //eslint-disable-next-line
-    addEventListener("storage", (e: StorageEvent) => {
-      console.log("STORAGE EVENT", e.newValue);
-    });
+    //get meds from local storage on first render
+    const _meds = localStorage.getItem("meds");
+    const parsed: any[] = _meds ? JSON.parse(_meds) : [];
+
+    setMeds(parsed);
   }, []);
 
   return (
