@@ -42,8 +42,14 @@ export function Header() {
           <DrawerHeader>TimerRx</DrawerHeader>
           <DrawerBody>
             <Flex direction="column" gap="2">
-              <Button colorScheme="cyan">Sign Up</Button>
-              <Button colorScheme="cyan" leftIcon={<Icon as={GoSignIn} />}>
+              <Button disabled colorScheme="cyan">
+                Sign Up
+              </Button>
+              <Button
+                disabled
+                colorScheme="cyan"
+                leftIcon={<Icon as={GoSignIn} />}
+              >
                 Log In
               </Button>
             </Flex>
