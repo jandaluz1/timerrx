@@ -10,6 +10,7 @@ import {
 
 import { MedState } from "./interface";
 import { MedsContext } from "./context";
+import { findNextDose } from "./utils";
 
 //name
 //dosage
@@ -20,10 +21,6 @@ import { MedsContext } from "./context";
 interface IProps {
   close: () => void;
 }
-
-const SECOND = 1000;
-const MINUTE = SECOND * 60;
-const HOUR = MINUTE * 60;
 
 export function AddMedForm({ close }: IProps) {
   const [drug, setDrug] = useState<MedState>({
@@ -44,14 +41,9 @@ export function AddMedForm({ close }: IProps) {
   //   setDrug({ ...drug, [e.target.name]: !e.target.checked });
   // };
 
-  const setNextDose = (): void => {
-    const hours = Math.floor(24 / drug.frequency!);
-    drug.nextDose = Date.now() + HOUR * hours;
-  };
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setNextDose();
+    drug.nextDose = findNextDose(drug);
     console.log(drug);
     localStorage.setItem("meds", JSON.stringify([...meds, drug]));
     setMeds((prevState) => [...prevState, drug]);
