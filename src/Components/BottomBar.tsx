@@ -9,6 +9,7 @@ import {
   useDisclosure,
   DrawerFooter,
   DrawerCloseButton,
+  Text,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { AddMedForm } from "./AddMedForm";
@@ -32,6 +33,9 @@ export function BottomBar() {
       >
         <Button onClick={onOpen} colorScheme="cyan" size="sm">
           <AddIcon boxSize="5" />
+          <Text display={["none", "inline"]} ml={[0, 2]}>
+            Add Medicine
+          </Text>
         </Button>
       </Flex>
       <Drawer isOpen={isOpen} onClose={onClose} placement="bottom" size="xs">

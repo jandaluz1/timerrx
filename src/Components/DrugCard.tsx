@@ -56,7 +56,7 @@ export function DrugCard({ med, idx }: IProps) {
   return (
     <Flex
       bg={"gray.100"}
-      w={["100%", "md", "lg"]}
+      w={["100%", "sm"]}
       h="100"
       border="2px"
       borderColor={isReady ? "cyan.500" : "black"}
