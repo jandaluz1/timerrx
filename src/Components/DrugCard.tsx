@@ -1,5 +1,13 @@
 import React, { MouseEvent, useContext, useEffect, useState } from "react";
-import { useToast, Text, Button, Flex } from "@chakra-ui/react";
+import {
+  useToast,
+  Text,
+  Flex,
+  IconButton,
+  Slide,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { DeleteIcon, CheckIcon } from "@chakra-ui/icons";
 
 import { MedState } from "./interface";
 import { MedsContext } from "./context";
@@ -12,7 +20,8 @@ interface IProps {
 
 export function DrugCard({ med, idx }: IProps) {
   const toast = useToast();
-  const [isReady, setIsReady] = useState<boolean>(false);
+  const { isOpen, getButtonProps } = useDisclosure();
+  const [isReady, setIsReady] = useState<boolean>(true);
   const { meds, setMeds } = useContext(MedsContext);
 
   useEffect(() => {
@@ -53,31 +62,63 @@ export function DrugCard({ med, idx }: IProps) {
     setIsReady(false);
   };
 
+  const deleteMed = (e: MouseEvent<HTMLButtonElement>) => {
+    const newMeds = meds.filter((med) => med !== meds[idx]);
+    console.log("NEWMEDS", newMeds);
+    localStorage.setItem("meds", JSON.stringify(newMeds));
+    setMeds(newMeds);
+  };
+
+  const buttonProps = getButtonProps({ onclick: deleteMed });
+
+  console.log(buttonProps);
+
   return (
-    <Flex
-      bg={"gray.100"}
-      w={["100%", "sm"]}
-      h="100"
-      border="2px"
-      borderColor={isReady ? "cyan.500" : "black"}
-      borderRadius={"lg"}
-      boxSizing="border-box"
-      align={"center"}
-      justify={"space-between"}
-      px={1.5}
+    <Slide
+      direction="left"
+      in={!isOpen}
+      unmountOnExit
+      style={{ position: "relative" }}
     >
-      <Flex direction={"column"}>
-        <Text fontSize="lg">
-          {med.name} - {med.dosage}mg
-        </Text>
-        <Text>Taken at: {formatTime(med.lastDose)}</Text>
-        <Text>Next dose at: {formatTime(med.nextDose!)}</Text>
+      <Flex
+        bg={"gray.100"}
+        w={["100%", "sm"]}
+        h="100"
+        border="2px"
+        borderColor={isReady ? "cyan.500" : "black"}
+        borderRadius={"lg"}
+        boxSizing="border-box"
+        align={"center"}
+        justify={"space-between"}
+        px={1.5}
+      >
+        <Flex direction={"column"}>
+          <Text fontSize="lg">
+            {med.name} - {med.dosage}mg
+          </Text>
+          <Text>Taken at: {formatTime(med.lastDose)}</Text>
+          <Text>Next dose at: {formatTime(med.nextDose!)}</Text>
+        </Flex>
+        <Flex gap={1.5}>
+          <IconButton
+            {...buttonProps}
+            aria-label="Delete"
+            icon={<DeleteIcon />}
+            colorScheme={"red"}
+            onClick={deleteMed}
+          />
+          {isReady ? (
+            <IconButton
+              aria-label="OK"
+              onClick={takeDose}
+              colorScheme={"whatsapp"}
+              icon={<CheckIcon />}
+            >
+              OK
+            </IconButton>
+          ) : null}
+        </Flex>
       </Flex>
-      {isReady ? (
-        <Button onClick={takeDose} colorScheme={"whatsapp"}>
-          OK
-        </Button>
-      ) : null}
-    </Flex>
+    </Slide>
   );
 }
