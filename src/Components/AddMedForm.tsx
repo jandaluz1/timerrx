@@ -25,8 +25,8 @@ interface IProps {
 export function AddMedForm({ close }: IProps) {
   const [drug, setDrug] = useState<MedState>({
     name: "",
-    dosage: 0,
-    frequency: 0,
+    dosage: undefined,
+    frequency: undefined,
     lastDose: Date.now(),
     nextDose: null,
   });
@@ -61,6 +61,7 @@ export function AddMedForm({ close }: IProps) {
           onChange={handleChange}
           placeholder="Drug Name"
           variant="filled"
+          autoFocus
         />
       </FormControl>
       <FormControl isRequired>
@@ -68,7 +69,7 @@ export function AddMedForm({ close }: IProps) {
         <Input
           id="dosage"
           name="dosage"
-          value={drug.dosage}
+          value={drug.dosage ?? ""}
           onChange={handleChange}
           placeholder="Dosage"
           variant="filled"
@@ -79,7 +80,7 @@ export function AddMedForm({ close }: IProps) {
         <Input
           id="frequency"
           name="frequency"
-          value={drug.frequency}
+          value={drug.frequency ?? ""}
           onChange={handleChange}
           placeholder="Frequency"
           variant="filled"
