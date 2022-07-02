@@ -15,7 +15,14 @@ export function ContentArea() {
   }, []);
 
   return (
-    <Flex w="100%" overflowY="scroll" direction="column" mt="9" gap="1.5">
+    <Flex
+      w="100%"
+      overflowY={["scroll", "unset"]}
+      direction={["column", "row"]}
+      flexWrap={["nowrap", "wrap"]}
+      mt="9"
+      gap="1.5"
+    >
       {meds
         ? meds.map((med, idx) => <DrugCard med={med} idx={idx} key={idx} />)
         : null}
