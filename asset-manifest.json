@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/timerrx/static/js/main.21e4814d.js",
-    "static/js/377.28e06045.chunk.js": "/timerrx/static/js/377.28e06045.chunk.js",
-    "index.html": "/timerrx/index.html",
-    "main.21e4814d.js.map": "/timerrx/static/js/main.21e4814d.js.map",
-    "377.28e06045.chunk.js.map": "/timerrx/static/js/377.28e06045.chunk.js.map"
+    "main.js": "/static/js/main.1c3345a8.js",
+    "static/js/377.28e06045.chunk.js": "/static/js/377.28e06045.chunk.js",
+    "index.html": "/index.html",
+    "main.1c3345a8.js.map": "/static/js/main.1c3345a8.js.map",
+    "377.28e06045.chunk.js.map": "/static/js/377.28e06045.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.21e4814d.js"
+    "static/js/main.1c3345a8.js"
   ]
 }
