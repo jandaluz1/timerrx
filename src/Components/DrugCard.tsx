@@ -50,7 +50,8 @@ export function DrugCard({ med, idx }: IProps) {
 
       return () => clearTimeout(timer1);
     }
-  }, []);
+    //eslint-disable-next-line
+  }, [med.nextDose]);
 
   const takeDose = (e: MouseEvent<HTMLButtonElement>) => {
     console.time();

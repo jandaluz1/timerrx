@@ -12,6 +12,7 @@ export function ContentArea() {
     const parsed: any[] = _meds ? JSON.parse(_meds) : [];
 
     setMeds(parsed);
+    //eslint-disable-next-line
   }, []);
 
   return (
