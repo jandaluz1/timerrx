@@ -64,14 +64,11 @@ export function DrugCard({ med, idx }: IProps) {
 
   const deleteMed = (e: MouseEvent<HTMLButtonElement>) => {
     const newMeds = meds.filter((med) => med !== meds[idx]);
-    console.log("NEWMEDS", newMeds);
     localStorage.setItem("meds", JSON.stringify(newMeds));
     setMeds(newMeds);
   };
 
   const buttonProps = getButtonProps({ onclick: deleteMed });
-
-  console.log(buttonProps);
 
   return (
     <Slide

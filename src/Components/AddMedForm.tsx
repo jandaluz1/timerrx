@@ -1,12 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState, useContext } from "react";
-import {
-  FormControl,
-  FormLabel,
-  Input,
-  Stack,
-  Checkbox,
-  CheckboxGroup,
-} from "@chakra-ui/react";
+import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 
 import { MedState } from "./interface";
 import { MedsContext } from "./context";
