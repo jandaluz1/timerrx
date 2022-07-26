@@ -7,6 +7,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+type Med {
+  name        String
+  dosage      Int
+  timesPerDay Int
+  lastTaken   DateTime @default(now())
+  nextDose    DateTime
+}
+
 model accounts {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   access_token      String
@@ -30,10 +38,8 @@ model sessions {
 model users {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   email         String
-  /// Could not determine type: the field only had null or empty values in the sample set.
   emailVerified Boolean?
   image         String
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  meds          Json?
+  meds          Med[]
   name          String
 }
