@@ -8,10 +8,10 @@ const options: MongoClientOptions = {
 let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
 
-if (!process.env.MONGODB_URI) {
+if (!process.env.DATABASE_URL) {
   throw new Error("Please add your Mongo URI to .env.local");
 }
-const uri = process.env.MONGODB_URI;
+const uri = process.env.DATABASE_URL;
 
 if (process.env.NODE_ENV === "development") {
   // In development mode, use a global variable so that the value
