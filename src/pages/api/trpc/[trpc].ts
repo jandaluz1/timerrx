@@ -1,17 +1,13 @@
 import * as trpc from "@trpc/server";
 import * as trpcNext from "@trpc/server/adapters/next";
 import { z } from "zod";
-import { createContext } from "@/server/trpc/context";
+import { Context, createContext } from "@/server/trpc/context";
+import { TRPCError } from "@trpc/server";
 
-export const appRouter = trpc.router().query("hello", {
-  input: z
-    .object({
-      text: z.string().nullish(),
-    })
-    .nullish(),
-  resolve({ input }) {
+export const appRouter = trpc.router<Context>().query("hello", {
+  resolve({ ctx }) {
     return {
-      greeting: `hello ${input?.text ?? "world"}`,
+      greeting: `hello ${ctx.session?.user?.name ?? "world"}`,
     };
   },
 });

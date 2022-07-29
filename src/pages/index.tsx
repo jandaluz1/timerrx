@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Header } from "@/Components/Header";
+import Header from "@/Components/Header";
 import { ContentArea } from "@/Components/ContentArea";
 import { BottomBar } from "@/Components/BottomBar";
 

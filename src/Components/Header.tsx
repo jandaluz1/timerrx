@@ -16,16 +16,36 @@ import {
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { GoSignIn } from "react-icons/go";
 
-export function Header() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+import { useSession, signIn, signOut } from "next-auth/react";
+
+function SignInOut() {
+  const { data: session } = useSession();
+  console.log(session);
+  if (session) {
+    return (
+      <Flex gap={2}>
+        {session.user?.email}
+        <button onClick={() => signOut()}>Sign out</button>
+      </Flex>
+    );
+  }
+
+  return (
+    <>
+      <button onClick={() => signIn()}>Sign in</button>
+    </>
+  );
+}
+
+export default function Header() {
   return (
     <>
       <Flex
-        px="1"
+        px="4"
         bg="white"
         w="100vw"
         direction="row"
-        justify="flex-end"
+        justify="space-between"
         align="center"
         position="fixed"
         top="0"
@@ -33,29 +53,10 @@ export function Header() {
         borderBottom="1px"
       >
         <Heading size="lg">TimerRx</Heading>
-        <HamburgerIcon onClick={onOpen} boxSize="5" ml="auto" />
+        <div>
+          <SignInOut />
+        </div>
       </Flex>
-      <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="xs">
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>TimerRx</DrawerHeader>
-          <DrawerBody>
-            <Flex direction="column" gap="2">
-              <Button disabled colorScheme="cyan">
-                Sign Up
-              </Button>
-              <Button
-                disabled
-                colorScheme="cyan"
-                leftIcon={<Icon as={GoSignIn} />}
-              >
-                Log In
-              </Button>
-            </Flex>
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
     </>
   );
 }
