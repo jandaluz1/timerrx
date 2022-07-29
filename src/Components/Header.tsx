@@ -6,7 +6,7 @@ import { FiLogOut } from "react-icons/fi";
 
 import { useSession, signIn, signOut } from "next-auth/react";
 
-function SignInOut() {
+export function SignInOut() {
   const { data: session } = useSession();
   if (session) {
     return (

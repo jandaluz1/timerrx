@@ -9,7 +9,6 @@ const Home: NextPage = () => {
   console.log(session);
   return (
     <>
-      {session ? <div>Signed In</div> : null}
       <Header />
       <ContentArea />
       <BottomBar />
