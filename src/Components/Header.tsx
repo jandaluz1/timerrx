@@ -8,7 +8,6 @@ import { useSession, signIn, signOut } from "next-auth/react";
 
 function SignInOut() {
   const { data: session } = useSession();
-  console.log(session);
   if (session) {
     return (
       <Flex gap={2}>
