@@ -1,20 +1,8 @@
 import React from "react";
 
-import {
-  Flex,
-  Heading,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerHeader,
-  useDisclosure,
-  Icon,
-  Button,
-} from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
-import { GoSignIn } from "react-icons/go";
+import { Flex, Heading, Button } from "@chakra-ui/react";
+import { FcGoogle } from "react-icons/fc";
+import { FiLogOut } from "react-icons/fi";
 
 import { useSession, signIn, signOut } from "next-auth/react";
 
@@ -24,15 +12,27 @@ function SignInOut() {
   if (session) {
     return (
       <Flex gap={2}>
-        {session.user?.email}
-        <button onClick={() => signOut()}>Sign out</button>
+        {/* {session.user?.email} */}
+        <Button
+          leftIcon={<FiLogOut />}
+          variant={"ghost"}
+          onClick={() => signOut()}
+        >
+          Sign out
+        </Button>
       </Flex>
     );
   }
 
   return (
     <>
-      <button onClick={() => signIn()}>Sign in</button>
+      <Button
+        leftIcon={<FcGoogle />}
+        variant={"ghost"}
+        onClick={() => signIn()}
+      >
+        Sign in
+      </Button>
     </>
   );
 }
