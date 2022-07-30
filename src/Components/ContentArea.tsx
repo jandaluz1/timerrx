@@ -3,6 +3,7 @@ import { Flex } from "@chakra-ui/react";
 import { DrugCard } from "./DrugCard";
 import { useSession } from "next-auth/react";
 import { SignInOut } from "./Header";
+import { trpc } from "@/utils/trpc";
 
 export function ContentArea() {
   const [meds, setMeds] = useState<Array<any>>();
@@ -16,6 +17,9 @@ export function ContentArea() {
   //   setMeds(parsed);
   //   //eslint-disable-next-line
   // }, []);
+
+  const _meds = trpc.useQuery(["get-user-meds"]);
+  console.log(_meds.data);
 
   if (!session && !meds) {
     return (

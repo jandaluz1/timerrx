@@ -4,6 +4,7 @@ import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { MedState } from "./interface";
 import { MedsContext } from "./context";
 import { findNextDose } from "./utils";
+import { trpc } from "@/utils/trpc";
 
 //name
 //dosage
@@ -21,10 +22,12 @@ export function AddMedForm({ close }: IProps) {
     dosage: undefined,
     frequency: undefined,
     lastDose: Date.now(),
-    nextDose: null,
+    nextDose: Date.now(),
   });
 
   const { meds, setMeds } = useContext(MedsContext);
+
+  const mutation = trpc.useMutation(["add-med"]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDrug({ ...drug, [e.target.name]: e.target.value });
@@ -36,10 +39,17 @@ export function AddMedForm({ close }: IProps) {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    drug.nextDose = findNextDose(drug);
-    console.log(drug);
-    localStorage.setItem("meds", JSON.stringify([...meds, drug]));
-    setMeds((prevState) => [...prevState, drug]);
+    // drug.nextDose = findNextDose(drug);
+    // console.log(drug);
+    // localStorage.setItem("meds", JSON.stringify([...meds, drug]));
+    // setMeds((prevState) => [...prevState, drug]);
+
+    mutation.mutate({
+      name: drug.name,
+      dosage: Number(drug.dosage!),
+      timesPerDay: Number(drug.frequency!),
+      nextDose: new Date(e.timeStamp),
+    });
     close();
   };
 
